@@ -6,6 +6,9 @@ A repository containing various Telegram bots I've developed over the years. The
 
 - [Car License Quiz Bot](#car-license-quiz-bot)
 - [YC-Style Instagram Content Generator](#yc-style-instagram-content-generator)
+- [Random Italian Recipes Bot](#random-italian-recipes-bot)
+- [Crypto Price Alert Bot](#crypto-price-alert-bot)
+- [Amazon Offers Scraper Bot](#amazon-offers-scraper-bot)
 - [Setup and Installation](#setup-and-installation)
 - [Contributing](#contributing)
 - [License](#license)
@@ -57,6 +60,78 @@ The bot leverages:
 - Structured error handling and logging
 - Environment variables for secure credential management
 
+## 🍲 Random Italian Recipes Bot
+
+### Overview
+
+This bot provides users with random Italian recipes from various categories sourced from GialloZafferano. Users can select different food categories and receive recipe links with just a few clicks.
+
+### Features
+
+- Categorized recipe selection (Antipasti, Primi, Secondi, Contorni, Desserts, etc.)
+- Random recipe generation within selected category
+- Refresh functionality to update recipe database
+- Clean, interactive UI with inline keyboards
+- Progress tracking during database updates
+- Support for multiple food categories
+
+### Technical Implementation
+
+The bot is built using:
+- Python with python-telegram-bot library
+- Web scraping with BeautifulSoup and requests
+- Multi-threaded operation for efficient data collection
+- JSON storage for recipe database
+- Inline keyboard for category selection
+- Progress tracking during database refreshes
+
+## 💰 Crypto Price Alert Bot
+
+### Overview
+
+This bot monitors cryptocurrency prices and sends alerts when specific price thresholds are reached. It integrates with Coinbase to provide real-time price tracking.
+
+### Features
+
+- Price alerts for various cryptocurrencies
+- Customizable price thresholds with greater/less than comparisons
+- Real-time price monitoring
+- Interactive conversation flow with inline keyboards
+- Multiple command options (track, help, contact)
+
+### Technical Implementation
+
+The bot leverages:
+- Python with python-telegram-bot library
+- Coinbase API integration for real-time pricing
+- Conversation handlers for interactive navigation
+- Inline keyboards for user interface
+- Job queue for periodic price checking
+- Custom callbacks for alert notifications
+
+## 🛒 Amazon Offers Scraper Bot
+
+### Overview
+
+This bot automatically scrapes Amazon deals and sends them to Telegram channels. It monitors specific deal pages and notifies subscribers about new discounts, complete with images and pricing information.
+
+### Features
+
+- Real-time monitoring of Amazon deal pages
+- Automatic notification of new offers
+- Complete offer details including images, prices, and discount percentages
+- Duplicate detection to prevent repeated notifications
+- Customizable monitoring intervals
+
+### Technical Implementation
+
+The bot is built using:
+- Python with python-telegram-bot library
+- Web scraping with BeautifulSoup and requests
+- Asynchronous operation for real-time monitoring
+- HTML formatting for rich message display
+- Set-based tracking of sent items
+
 ## 🔧 Setup and Installation
 
 ### Prerequisites
@@ -68,6 +143,10 @@ The bot leverages:
   - Instagram Business Account
   - Facebook Developer Account with Instagram Graph API access
   - Imgur Client ID
+- For Crypto Alert bot:
+  - Coinbase API credentials
+- For Amazon Offers bot:
+  - Amazon affiliate referral code (optional)
 
 ### Installation
 
@@ -93,6 +172,19 @@ OPENAI_TOKEN=your_openai_api_key
 IMGUR_CLIENT_ID=your_imgur_client_id
 INSTA_USER_ID=your_instagram_user_id
 INSTA_ACCESS_TOKEN=your_instagram_access_token
+
+# For Random Recipes Bot
+TELEGRAM_BOT_TOKEN=your_telegram_token
+
+# For Crypto Alert Bot
+COINBASE_KEY=your_coinbase_key
+COINBASE_SECRET=your_coinbase_secret
+TELEGRAM_TOKEN=your_telegram_token
+
+# For Amazon Offers Bot
+TELEGRAM_TOKEN=your_telegram_token
+CHAT_ID=your_target_chat_id
+REF_CODE=your_amazon_referral_code
 ```
 
 4. Run the desired bot:
@@ -102,11 +194,20 @@ python car_quiz_telegram_bot.py
 
 # For YC-Style Instagram Bot
 python instagram_content_generator.py
+
+# For Random Recipes Bot
+python random_recipes_bot.py
+
+# For Crypto Alert Bot
+python crypto_alert_bot.py
+
+# For Amazon Offers Bot
+python send_amazon_offers.py
 ```
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/your-username/telegram-bots-collection/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/roberto98/telegram-bots-collection/issues).
 
 ## 📄 License
 
