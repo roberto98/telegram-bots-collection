@@ -127,7 +127,7 @@ def send_quiz(context: CallbackContext):
     """Send a quiz question to the chat with retry logic"""
     try:
         # Check if we already have too many active quizzes
-        max_active_quizzes = 300
+        max_active_quizzes = 20
         if len(quiz_data_dict) >= max_active_quizzes:
             logger.warning(f"Too many active quizzes ({len(quiz_data_dict)}), skipping new quiz")
             return
@@ -244,7 +244,27 @@ def button(update: Update, context: CallbackContext) -> None:
         # Check if the quiz data exists for this message
         if message_id not in quiz_data_dict:
             logger.warning(f"Quiz data not found for message ID {message_id}")
-            query.edit_message_text(text="Sorry, this quiz is no longer available.")
+            
+            # Check if the message has an image (caption) or text
+            has_caption = hasattr(query.message, 'caption') and query.message.caption is not None
+            
+            try:
+                if has_caption:
+                    # Message has an image, update the caption
+                    query.edit_message_caption(
+                        caption="Questo quiz non è più disponibile.",
+                        parse_mode=ParseMode.HTML
+                    )
+                else:
+                    # Message is text-only, update the text
+                    query.edit_message_text(
+                        text="Questo quiz non è più disponibile."
+                    )
+            except Exception as edit_error:
+                logger.error(f"Failed to update quiz message: {edit_error}")
+                # At this point, we've already called answer() so the user knows their click was received
+                # Even if we can't update the message, we don't need to do anything else
+            
             return
         
         quiz_data = quiz_data_dict.pop(message_id)  # Retrieve and remove the corresponding QuizData instance
